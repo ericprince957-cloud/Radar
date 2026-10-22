@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lie Detector</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <a class="back" href="index.html">← Menu</a>
+    <h1 class="title">LIE DETECTOR</h1>
+
+    <label class="field-label" for="statement">1. Type your statement</label>
+    <input id="statement" class="input" type="text" maxlength="80"
+           placeholder='e.g. "I am not scared of ghosts"' autocomplete="off">
+
+    <p class="field-label">2. Press and hold the scanner</p>
+    <button id="pad" class="pad" aria-label="Hold to scan fingerprint">
+      <svg viewBox="0 0 120 120">
+        <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
+        <circle id="ring" class="ring" cx="60" cy="60" r="54"></circle>
+      </svg>
+      <span class="finger">🖐</span>
+    </button>
+
+    <canvas id="wave" width="600" height="180"></canvas>
+    <p id="status" class="status">Waiting for input...</p>
+  </main>
+
+  <div id="result" class="overlay hidden">
+    <p id="resultIcon" class="overlay-icon"></p>
+    <h2 id="resultText"></h2>
+    <p id="resultStatement" class="result-statement"></p>
+    <p id="resultPct" class="result-pct"></p>
+    <button id="againBtn" class="btn">TEST AGAIN</button>
+  </div>
+
+  <script src="lie.js"></script>
+</body>
+</html>
