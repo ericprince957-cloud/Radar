@@ -1,0 +1,359 @@
+:root {
+  --bg: #050b16;
+  --panel: rgba(255, 255, 255, 0.04);
+  --line: rgba(120, 170, 255, 0.18);
+  --green: #2dffa0;
+  --blue: #3b82f6;
+  --blue-glow: #60a5fa;
+  --red: #ff4d5e;
+  --text: #dbe7ff;
+  --muted: #7f93b8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 50% 0%, #0f2347 0%, var(--bg) 60%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 16px;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* Faint grid in the background */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.25;
+  pointer-events: none;
+  mask-image: radial-gradient(circle at 50% 40%, black 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(circle at 50% 40%, black 20%, transparent 75%);
+}
+
+.app {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+}
+
+.title {
+  font-size: 1.8rem;
+  letter-spacing: 0.35em;
+  margin-bottom: 8px;
+  background: linear-gradient(90deg, var(--blue-glow), var(--green));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.back:hover {
+  color: var(--blue-glow);
+}
+
+/* ---------- Menu cards ---------- */
+.menu {
+  display: grid;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+  transition: 0.25s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--blue-glow);
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.25);
+}
+
+.card .icon {
+  font-size: 2.4rem;
+}
+
+.card h2 {
+  font-size: 1.05rem;
+  letter-spacing: 0.18em;
+  margin-bottom: 4px;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  padding: 14px 36px;
+  border: none;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: white;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--blue), #2563eb);
+  box-shadow: 0 6px 24px rgba(59, 130, 246, 0.4);
+  transition: 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--red), #c81e33);
+  box-shadow: 0 6px 24px rgba(255, 77, 94, 0.45);
+}
+
+/* ---------- Status text ---------- */
+.status {
+  margin: 18px 0;
+  min-height: 24px;
+  font-family: "Courier New", monospace;
+  color: var(--green);
+  letter-spacing: 0.05em;
+}
+
+/* ---------- Radar ---------- */
+.radar-wrap {
+  margin-top: 10px;
+}
+
+#radar {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(45, 255, 160, 0.25), 0 0 60px rgba(45, 255, 160, 0.25);
+}
+
+.shake {
+  animation: shake 0.45s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-12px); }
+  40% { transform: translateX(12px); }
+  60% { transform: translateX(-8px); }
+  80% { transform: translateX(8px); }
+}
+
+/* ---------- Flash + overlay ---------- */
+.flash {
+  position: fixed;
+  inset: 0;
+  background: var(--red);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.flash.active {
+  animation: flashing 0.7s ease-out;
+}
+
+@keyframes flashing {
+  0%   { opacity: 0.95; }
+  25%  { opacity: 0; }
+  50%  { opacity: 0.8; }
+  100% { opacity: 0; }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 24px;
+  background: rgba(5, 11, 22, 0.94);
+  backdrop-filter: blur(6px);
+}
+
+.overlay.danger {
+  background: rgba(45, 0, 8, 0.94);
+  color: var(--red);
+}
+
+.overlay.danger h2 {
+  text-shadow: 0 0 18px var(--red);
+}
+
+.overlay h2 {
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  animation: pulse 0.6s infinite alternate;
+}
+
+.overlay-icon {
+  font-size: 4rem;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to   { transform: scale(1.07); }
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ---------- Lie detector ---------- */
+.field-label {
+  display: block;
+  margin: 22px 0 10px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+}
+
+.input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  font-size: 1rem;
+  outline: none;
+  transition: 0.2s;
+}
+
+.input:focus {
+  border-color: var(--blue-glow);
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+}
+
+.input.error {
+  border-color: var(--red);
+  animation: shake 0.4s;
+}
+
+.pad {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.25), rgba(59, 130, 246, 0.05));
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pad svg {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.ring-bg,
+.ring {
+  fill: none;
+  stroke-width: 6;
+}
+
+.ring-bg {
+  stroke: var(--line);
+}
+
+.ring {
+  stroke: var(--green);
+  stroke-linecap: round;
+  stroke-dasharray: 339.29;
+  stroke-dashoffset: 339.29;
+  filter: drop-shadow(0 0 6px var(--green));
+}
+
+.finger {
+  position: relative;
+  font-size: 3.4rem;
+}
+
+.pad.active {
+  box-shadow: 0 0 40px rgba(45, 255, 160, 0.45);
+}
+
+#wave {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 22px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.result-statement {
+  max-width: 340px;
+  color: var(--muted);
+  font-style: italic;
+  word-break: break-word;
+}
+
+.result-pct {
+  font-family: "Courier New", monospace;
+  font-size: 1.1rem;
+}
+
+.overlay.truth {
+  color: var(--green);
+}
+
+.overlay.lie {
+  background: rgba(45, 0, 8, 0.94);
+  color: var(--red);
+}
