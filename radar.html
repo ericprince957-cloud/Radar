@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <a class="back" href="index.html">← Menu</a>
+    <h1 class="title">RADAR</h1>
+
+    <div id="radarWrap" class="radar-wrap">
+      <canvas id="radar" width="800" height="800"></canvas>
+    </div>
+
+    <p id="status" class="status">System ready</p>
+    <button id="startBtn" class="btn">START SCAN</button>
+  </main>
+
+  <div id="flash" class="flash"></div>
+
+  <div id="warning" class="overlay danger hidden">
+    <p class="overlay-icon">⚠</p>
+    <h2 id="warningText"></h2>
+    <button id="againBtn" class="btn btn-danger">SCAN AGAIN</button>
+  </div>
+
+  <script src="radar.js"></script>
+</body>
+</html>
+
